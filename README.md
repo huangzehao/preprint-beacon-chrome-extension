@@ -25,7 +25,3 @@ Preprint Beacon is a Chrome extension that enhances your browsing experience on 
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a detailed list of changes.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
