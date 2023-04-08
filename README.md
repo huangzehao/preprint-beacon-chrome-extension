@@ -4,6 +4,8 @@ Preprint Beacon is a Chrome extension that enhances your browsing experience on 
 
 **Acknowledgment:** Thank you to arXiv for use of its open access interoperability.
 
+**Note:** The motivation of this project is to experience the paired programming ability of GPT-4. The vast majority of the code in this project is implemented by GPT-4.
+
 ## Preview
 Randomly pick several authors for preview.
 ![preview](imgs/preview.png)
