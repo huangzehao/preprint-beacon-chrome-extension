@@ -3,9 +3,6 @@
   "name": "Preprint Beacon",
   "version": "1.0",
   "description": "Highlight papers from interesting authors on Arxiv.",
-  "icons": {
-    "48": "icon.png"
-  },
   "options_page": "options.html",
   "permissions": [
     "activeTab",
