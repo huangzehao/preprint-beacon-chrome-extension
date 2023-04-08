@@ -1,1 +1,31 @@
-# arxiv-chrome-plugins
+# Preprint Beacon
+
+Preprint Beacon is a Chrome extension that enhances your browsing experience on preprint repositories like arXiv by highlighting papers from interesting authors.
+
+**Acknowledgment:** Thank you to arXiv for use of its open access interoperability.
+
+## Features
+
+- Highlight papers from a customizable list of interesting authors.
+- Bold author names for highlighted papers.
+
+## Installation
+
+1. Clone this repository or download it as a ZIP file.
+2. In Chrome, go to `chrome://extensions`.
+3. Enable "Developer mode" in the top right corner.
+4. Click "Load unpacked" and select the folder containing the downloaded repository.
+
+## Usage
+
+1. Open the extension's options page by right-clicking the Preprint Beacon icon in the Chrome toolbar and selecting "Options".
+2. Add or remove authors from the list of interesting authors.
+3. Visit an arXiv listing page, and the extension will automatically highlight papers from the interesting authors.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a detailed list of changes.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).

@@ -1,0 +1,4 @@
+.highlighted {
+    background-color: rgba(255, 255, 0, 0.3); /* You can customize the color */
+    border: 1px solid #000;
+  }
