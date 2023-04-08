@@ -1,10 +1,12 @@
 # Preprint Beacon
 
+**Never Miss Your Favored Authors!**
+
 Preprint Beacon is a Chrome extension that enhances your browsing experience on preprint repositories like arXiv by highlighting papers from interesting authors.
 
 **Acknowledgment:** Thank you to arXiv for use of its open access interoperability.
 
-**Note:** The motivation of this project is to experience the paired programming ability of GPT-4. The vast majority of the code in this project is implemented by GPT-4.
+**Note:** The motivation of this project is to experience the paired programming ability of GPT-4. The vast majority of the code in this project, including the CHANGELOG and README, is implemented by GPT-4.
 
 ## Preview
 Randomly pick several authors for preview.
