@@ -4,6 +4,11 @@ Preprint Beacon is a Chrome extension that enhances your browsing experience on 
 
 **Acknowledgment:** Thank you to arXiv for use of its open access interoperability.
 
+## Preview
+Randomly pick several authors for preview.
+![preview](imgs/preview.png)
+![authors](imgs/authors.png)
+
 ## Features
 
 - Highlight papers from a customizable list of interesting authors.
