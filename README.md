@@ -1,5 +1,8 @@
+# arXiv Enhancer
+## Reflections on Building with GPT-4o
+Today, exactly one year after completing the original project with GPT-4, I decided to rebuild it from scratch using the latest GPT-4o. The advancements in GPT-4o compared to the GPT-4 version I used in March 2023 are remarkable. The current model can generate almost error-free, runnable code, and it supports image inputs to report the current running state and error information, making prompts significantly easier. These improvements have saved me a considerable amount of time and allowed this toy project to support even more features. I am genuinely impressed by the progress and efficiency brought about by these advancements.
+![alt text](imgs/enhancer.png)
 # Preprint Beacon
-
 **Never Miss Your Favored Authors!**
 
 Preprint Beacon is a Chrome extension that enhances your browsing experience on preprint repositories like arXiv by highlighting papers from interesting authors.

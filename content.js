@@ -1,60 +1,77 @@
-async function getInterestingAuthors() {
-  return new Promise((resolve) => {
-    chrome.storage.sync.get('interestingAuthors', (data) => {
-      resolve(data.interestingAuthors || []);
-    });
-  });
-}
+chrome.storage.sync.get(["favoriteAuthors", "highlightKeywords", "savedArticles"], (data) => {
+    const { favoriteAuthors, highlightKeywords, savedArticles } = data;
 
-function extractPaperId(paperLink) {
-  const regex = /\/abs\/(.*?)$/;
-  const match = paperLink.match(regex);
-  return match ? match[1] : null;
-}
+    const updateSavedArticles = (articleId, titleText) => {
+        let articles = savedArticles || {};
+        articles[articleId] = titleText;
+        chrome.storage.sync.set({ savedArticles: articles }, () => {
+        //   alert("Article saved!");
+        });
+      };
 
-async function fetchPaperDetails(paperId) {
-  const response = await fetch(`https://export.arxiv.org/api/query?id_list=${paperId}`);
-  const responseText = await response.text();
-  const parser = new DOMParser();
-  const xmlDoc = parser.parseFromString(responseText, 'application/xml');
-  const entry = xmlDoc.querySelector('entry');
-  if (!entry) return null;
+      document.querySelectorAll('dl > dt').forEach((articleHeaderElement) => {
+        const articleLinkElement = articleHeaderElement.querySelector('a[href^="/abs/"]');
+        if (articleLinkElement) {
+          const articleId = articleLinkElement.getAttribute('href').split('/').pop();
+          const titleElement = articleHeaderElement.nextElementSibling.querySelector('.list-title');
+          const titleText = titleElement.textContent.trim();
 
-  const authors = Array.from(entry.querySelectorAll('author')).map(author => {
-    return author.querySelector('name').textContent;
-  });
+          // Add a '+' button next to the title
+          const saveButton = document.createElement('button');
+          saveButton.textContent = '+';
+          saveButton.style.marginLeft = '10px';
+          saveButton.style.cursor = 'pointer';
+          saveButton.title = 'Save this article';
+          saveButton.onclick = () => updateSavedArticles(articleId, titleText);
 
-  return {authors};
-}
+          titleElement.appendChild(saveButton);
+        }
+      });
 
-async function highlightInterestingAuthors() {
-  const interestingAuthors = await getInterestingAuthors();
-  const paperLinks = document.querySelectorAll('.list-identifier a[title="Abstract"]');
-  console.log(`Found ${paperLinks.length} papers`);
+    if (favoriteAuthors) {
+      const authorsList = favoriteAuthors.split("\n").map(author => author.trim().toLowerCase());
+      document.querySelectorAll('.list-authors').forEach(authorElement => {
+        const authorText = authorElement.textContent.toLowerCase();
+        console.log("authors:", authorsList);
+        if (authorsList.some(author => authorText.includes(author))) {
+          const parentElement = authorElement.closest('dd');
+          if (parentElement) {
+            parentElement.classList.add('highlight-article');
+          }
 
-  for (const paperLink of paperLinks) {
-    const paperId = extractPaperId(paperLink.href);
-    if (!paperId) continue;
-
-    const paperDetails = await fetchPaperDetails(paperId);
-
-    if (!paperDetails) continue;
-
-    const {authors} = paperDetails;
-    console.log(`Authors of ${paperId}: ${authors}`);
-
-    const listItem = paperLink.closest('dt').nextElementSibling;
-    const authorLinks = listItem.querySelectorAll('.list-authors a');
-
-    for (const authorLink of authorLinks) {
-      const author = authorLink.textContent;
-      if (interestingAuthors.includes(author.trim())) {
-        listItem.classList.add('highlighted');
-        authorLink.classList.add('bold-author');
-        console.log(`Highlight ${author}'s paper ${paperId}`);
-      }
+          authorElement.querySelectorAll('a').forEach(linkElement => {
+            const linkText = linkElement.textContent.toLowerCase();
+            if (authorsList.includes(linkText)) {
+              linkElement.classList.add('bold-author');
+            }
+          });
+        }
+      });
     }
-  }
-}
 
-highlightInterestingAuthors();
+    if (highlightKeywords) {
+        const keywordsList = highlightKeywords.split("\n").map(keyword => keyword.trim().toLowerCase());
+        document.querySelectorAll('.list-title').forEach(titleElement => {
+          let titleHTML = titleElement.innerHTML;
+          const titleText = titleElement.textContent.toLowerCase();
+          let foundKeyword = false; // 追踪是否找到关键词
+
+          keywordsList.forEach(keyword => {
+            if (titleText.includes(keyword)) {
+              // 使用正则表达式匹配并替换关键词
+              const regex = new RegExp(`(${keyword})`, 'gi');
+              titleHTML = titleHTML.replace(regex, '<span class="highlight-keyword">$1</span>');
+              foundKeyword = true; // 设置为true，因为找到了关键词
+            }
+          });
+
+          if (foundKeyword) {
+            titleElement.innerHTML = titleHTML;
+            const parentElement = titleElement.closest('dd');
+            if (parentElement) {
+              parentElement.classList.add('highlight-article');
+            }
+          }
+        });
+      }
+    });

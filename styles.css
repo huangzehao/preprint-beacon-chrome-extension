@@ -1,4 +1,14 @@
-.highlighted {
-    background-color: rgba(255, 255, 0, 0.3); /* You can customize the color */
-    border: 1px solid #000;
+.highlight-article {
+    background-color: rgba(255, 255, 0, 0.3); /* 半透明黄色高亮 */
+    border: 2px solid rgba(0, 0, 0, 1); /* 黑色边框 */
+    padding: 1px; /* 为了不让内容紧贴边框，添加一些内边距 */
+    margin-bottom: 1px; /* 在高亮文章之间添加一些间距 */
+  }
+
+.bold-author {
+    font-weight: bold !important;
+  }
+
+.highlight-keyword {
+    color: #ff0000; /* 红色字体 */
   }

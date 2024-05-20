@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Preprint Beacon",
+  "version": "1.0",
+  "description": "Highlight papers from interesting authors on Arxiv.",
+  "options_page": "options.html",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "https://arxiv.org/*",
+    "https://export.arxiv.org/"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://arxiv.org/*"],
+      "js": ["content.js"],
+      "css": ["styles.css", "content.css"]
+    }
+  ]
+}
